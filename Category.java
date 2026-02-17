@@ -22,4 +22,9 @@ public class Category {
         return this.name;
     }
 
+    @Override
+    public String toString() {
+        return this.id + " | " + this.type + " | " + this.name;
+    }
+
 }

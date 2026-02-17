@@ -46,6 +46,10 @@ public class BankAccount {
         return new BankAccount(generatedId, name, 0.0);
     }
 
+    public static BankAccountBuilder builder() {
+        return new BankAccountBuilder();
+    }
+
     public static class BankAccountBuilder {
         private String id;
         private double balance;
@@ -69,7 +73,7 @@ public class BankAccount {
             return this;
         }
 
-        public BankAccount buld() {
+        public BankAccount build() {
             if (this.name == null || this.name.isEmpty()) {
                 throw new IllegalStateException("Название счета обязательно!");
             }

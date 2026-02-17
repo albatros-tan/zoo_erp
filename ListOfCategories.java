@@ -1,3 +1,5 @@
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,9 +22,14 @@ public class ListOfCategories {
     public Category getCategory(String categoryName) {
         Category category = this.categories.get(categoryName);
         if (category == null) {
-            this.log.error(categoryName, "Такая категория не найдена", categoryName);
-            throw new RuntimeException("Категория " + categoryName + " не найдена");
+            this.log.warning(categoryName, "Категория не найдена");
+            return null;
         }
         return category;
     }
+
+    public Collection<Category> getCategories() {
+        return Collections.unmodifiableCollection(this.categories.values());
+    }
+
 }
