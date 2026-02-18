@@ -1,3 +1,5 @@
+import java.util.Set;
+
 public class ReportToCSV extends BaseReport {
     private WriterCsv writerCsv;
 
@@ -44,10 +46,48 @@ public class ReportToCSV extends BaseReport {
 
     @Override
     public void getOperationsByAccount(String accountId) {
+        String nameReport = "accounts.csv";
+        getOperationsByAccount(accountId, nameReport, false);
+    };
+
+    public void getOperationsByAccount(
+            String accountId,
+            String nameReport,
+            boolean orderById) {
+        String pathToReport = ReportConstants.getPath(nameReport);
+        if (orderById == true) {
+            this.writerCsv.createOrderingReportOperation(
+                    pathToReport,
+                    this.operationRepository.getOperations(accountId));
+        } else {
+            this.writerCsv.createReportOperation(
+                    pathToReport,
+                    this.operationRepository.getOperations(accountId));
+        }
     };
 
     @Override
     public void getOperations() {
+        String nameReport = "accounts.csv";
+        getOperations(nameReport, false);
+    };
+
+    public void getOperations(String nameReport, boolean orderById) {
+        Set<String> accountIds = this.operationRepository.getAccountIds();
+        for (String accountId : accountIds) {
+
+            String pathToReport = ReportConstants.getPath(
+                    nameReport.replaceAll(".csv", "_" + accountId + ".csv"));
+            if (orderById == true) {
+                this.writerCsv.createOrderingReportOperation(
+                        pathToReport,
+                        this.operationRepository.getOperations(accountId));
+            } else {
+                this.writerCsv.createOrderingReportOperation(
+                        pathToReport,
+                        this.operationRepository.getOperations(accountId));
+            }
+        }
     };
 
 }

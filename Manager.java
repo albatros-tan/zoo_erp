@@ -62,5 +62,6 @@ public class Manager {
         report.getOperationsByAccount("qwerty76dsas");
         csvReport.getCategories("init_categories.csv", true);
         csvReport.getAllAccounts("init_accounts.csv");
+        csvReport.getOperations("init_operations.csv", true);
     }
 }

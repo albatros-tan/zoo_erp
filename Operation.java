@@ -24,12 +24,32 @@ public class Operation {
         this.categoryId = categoryId;
     }
 
+    public Instant getDate() {
+        return this.date;
+    }
+
     public String getAccountId() {
         return this.bankAccountId;
     }
 
     public double getAmount() {
         return this.amount;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public OperationType getType() {
+        return this.type;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public int getCategoryId() {
+        return this.categoryId;
     }
 
     @Override
