@@ -1,8 +1,8 @@
 public abstract class BaseOperationHandler implements IOperationHandler {
     public OperationRepository operationRepository;
-    public Bank bank;
+    public IBank bank;
 
-    public BaseOperationHandler(OperationRepository operationRepository, Bank bank) {
+    public BaseOperationHandler(OperationRepository operationRepository, IBank bank) {
         this.operationRepository = operationRepository;
         this.bank = bank;
     }

@@ -1,35 +1,39 @@
 public class Manager {
-    ILog log;
-    Bank bank;
-    BankClient bankClient;
-    DisplayReport report;
-    ReportToCSV csvReport;
-    IGenerateAccNumber generator;
+    private ILog log;
+    private OperationRepository operationRepository;
+    private ListOfCategories listOfCategories;
+    private AccountRepository accountRepository;
+    private IBank bank;
+    private IOperationHandler depositCommand;
+    private IOperationHandler withdrawCommand;
+    private BankClient bankClient;
+    private DisplayReport report;
+    private ReportToCSV csvReport;
+    private IGenerateAccNumber generator;
 
-    public Manager() {
-        this.log = new PrintMessage();
-        OperationRepository operationRepository = new OperationRepository(log);
-        ListOfCategories listOfCategories = new ListOfCategories(log);
-        AccountRepository accountRepository = new AccountRepository();
-        this.bank = new Bank(log, accountRepository);
-        DepositOperation depositCommand = new DepositOperation(operationRepository, this.bank);
-        CostOperation withdrawCommand = new CostOperation(operationRepository, this.bank);
-        this.bankClient = new BankClient(
-                log,
-                depositCommand,
-                withdrawCommand,
-                listOfCategories,
-                accountRepository);
-        this.report = new DisplayReport(
-                listOfCategories,
-                accountRepository,
-                operationRepository);
-        this.csvReport = new ReportToCSV(
-                listOfCategories,
-                accountRepository,
-                operationRepository,
-                new WriterCsv());
-        this.generator = new GenerateAccountNumber();
+    public Manager(
+            ILog log,
+            OperationRepository operationRepository,
+            ListOfCategories listOfCategories,
+            AccountRepository accountRepository,
+            IBank bank,
+            IOperationHandler depositCommand,
+            IOperationHandler withdrawCommand,
+            BankClient bankClient,
+            DisplayReport report,
+            ReportToCSV csvReport,
+            IGenerateAccNumber generator) {
+        this.log = log;
+        this.operationRepository = operationRepository;
+        this.listOfCategories = listOfCategories;
+        this.accountRepository = accountRepository;
+        this.bank = bank;
+        this.depositCommand = depositCommand;
+        this.withdrawCommand = withdrawCommand;
+        this.bankClient = bankClient;
+        this.report = report;
+        this.csvReport = csvReport;
+        this.generator = generator;
     }
 
     public void demo() {
@@ -64,4 +68,69 @@ public class Manager {
         csvReport.getAllAccounts("init_accounts.csv");
         csvReport.getOperations("init_operations.csv", true);
     }
+
+    public void newCategory(CategoryType type, String name) {
+        bankClient.createCategory(type, name);
+    }
+
+    public void newAccount(String name) {
+        bankClient.createNewAccount(name, generator);
+    }
+
+    public void loadAccount(String id, double balance, String name) {
+        bankClient.addExistsAccount(id, balance, name);
+    }
+
+    public void deposit(
+            String accountId,
+            double amount,
+            String description,
+            String destination) {
+        bankClient.deposit(
+                accountId,
+                amount,
+                description,
+                destination);
+    }
+
+    public void withdraw(
+            String accountId,
+            double amount,
+            String description,
+            String source) {
+        bankClient.withdraw(
+                accountId,
+                amount,
+                description,
+                source);
+    }
+
+    public void printReportByCategory() {
+        report.getCategories();
+    }
+
+    public void printReportByAccounts() {
+        report.getAllAccounts();
+    }
+
+    public void printReportByOperations() {
+        report.getOperations();
+    }
+
+    public void printReportByOperationsByAccount(String accountId) {
+        report.getOperationsByAccount(accountId);
+    }
+
+    public void ReportByCategoryToCSV(String nameReport, boolean OrderById) {
+        csvReport.getCategories(nameReport, OrderById);
+    }
+
+    public void ReportByAccountsToCSV(String nameReport) {
+        csvReport.getAllAccounts(nameReport);
+    }
+
+    public void ReportByOperationsToCSV(String nameReport, boolean OrderById) {
+        csvReport.getOperations(nameReport, OrderById);
+    }
+
 }

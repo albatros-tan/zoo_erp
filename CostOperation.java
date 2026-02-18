@@ -1,6 +1,6 @@
 public class CostOperation extends BaseOperationHandler {
 
-    public CostOperation(OperationRepository operationRepository, Bank bank) {
+    public CostOperation(OperationRepository operationRepository, IBank bank) {
         super(operationRepository, bank);
     }
 

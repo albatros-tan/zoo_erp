@@ -28,10 +28,10 @@ public class BankClient {
         this.log.printMsg(account.toString());
     }
 
-    public void addExistsAccount(String id, double balnce, String name) {
+    public void addExistsAccount(String id, double balance, String name) {
         BankAccount account = BankAccount.builder()
                 .id(id)
-                .balance(balnce)
+                .balance(balance)
                 .name(name)
                 .build();
         this.accountRepository.addAccount(account);

@@ -1,6 +1,6 @@
 public class DepositOperation extends BaseOperationHandler {
 
-    public DepositOperation(OperationRepository operationRepository, Bank bank) {
+    public DepositOperation(OperationRepository operationRepository, IBank bank) {
         super(operationRepository, bank);
     }
 
