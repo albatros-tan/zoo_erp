@@ -3,6 +3,7 @@ public class Manager {
     Bank bank;
     BankClient bankClient;
     DisplayReport report;
+    ReportToCSV csvReport;
     IGenerateAccNumber generator;
 
     public Manager() {
@@ -23,6 +24,11 @@ public class Manager {
                 listOfCategories,
                 accountRepository,
                 operationRepository);
+        this.csvReport = new ReportToCSV(
+                listOfCategories,
+                accountRepository,
+                operationRepository,
+                new WriterCsv());
         this.generator = new GenerateAccountNumber();
     }
 
@@ -31,6 +37,7 @@ public class Manager {
         bankClient.createCategory(CategoryType.INCOME, "Перевод");
         bankClient.createCategory(CategoryType.COSTS, "Кафе");
         bankClient.createCategory(CategoryType.COSTS, "Продукты");
+        bankClient.createCategory(CategoryType.COSTS, "Заправка");
 
         bankClient.createNewAccount("Зарплатный счет", generator);
         bankClient.createNewAccount("Накопительный счет", generator);
@@ -53,5 +60,7 @@ public class Manager {
         report.getAllAccounts();
         report.getOperations();
         report.getOperationsByAccount("qwerty76dsas");
+        csvReport.getCategories("init_categories.csv", true);
+        csvReport.getAllAccounts("init_accounts.csv");
     }
 }

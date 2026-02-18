@@ -1,0 +1,7 @@
+id,name,type
+1,Зарплата,INCOME
+2,Перевод,INCOME
+3,Кафе,COSTS
+4,Продукты,COSTS
+5,Заправка,COSTS
+6,Аванс,INCOME

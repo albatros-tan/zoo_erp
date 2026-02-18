@@ -1,23 +1,18 @@
 import java.util.ArrayList;
 import java.util.Set;
 
-public class DisplayReport implements IReport {
-    private ListOfCategories listOfCategories;
-    private AccountRepository accountRepository;
-    private OperationRepository operationRepository;
+public class DisplayReport extends BaseReport {
 
     public DisplayReport(
             ListOfCategories listOfCategories,
             AccountRepository accountRepository,
             OperationRepository operationRepository) {
-        this.listOfCategories = listOfCategories;
-        this.accountRepository = accountRepository;
-        this.operationRepository = operationRepository;
+        super(listOfCategories, accountRepository, operationRepository);
     }
 
     @Override
     public void getCategories() {
-        System.out.println("==============Список категорий" + "==============");
+        System.out.println("==============Список категорий==============");
         for (Category category : this.listOfCategories.getCategories()) {
             System.out.println(category);
         }
@@ -26,7 +21,7 @@ public class DisplayReport implements IReport {
 
     @Override
     public void getAllAccounts() {
-        System.out.println("==============Список счетов" + "==============");
+        System.out.println("==============Список счетов==============");
         for (BankAccount account : this.accountRepository.getAccounts()) {
             System.out.println(account);
         }
@@ -45,7 +40,7 @@ public class DisplayReport implements IReport {
 
     @Override
     public void getOperations() {
-        System.out.println("==============Список операций" + "==============");
+        System.out.println("==============Список операций==============");
         Set<String> accountIds = this.operationRepository.getAccountIds();
         for (String accountId : accountIds) {
             System.out.println(accountId);
