@@ -1,3 +1,3 @@
 id,type,accountId,amount,description,categoryId,date
-1,INCOME,qwerty76dsas,1334,00,Тестовое пополнение,6,2026-02-18T13:35:55.353006768Z
-2,COSTS,qwerty76dsas,700,00,Тестовое списание,3,2026-02-18T13:35:55.362673853Z
+1,INCOME,qwerty76dsas,1334,00,Тестовое пополнение,6,2026-02-19T04:42:41.561896761Z
+2,COSTS,qwerty76dsas,700,00,Тестовое списание,3,2026-02-19T04:42:41.571651424Z
